@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoreFuel — Train Smarter. Fuel Better. Recover Faster.</title>
+
+  <!-- =====================================================
+       FAVICON — inline SVG flame (no external dependencies)
+  ====================================================== -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>" />
+
+  <!-- =====================================================
+       GOOGLE FONTS — Inter for body, Syne for display
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================
+       CSS CUSTOM PROPERTIES — brand tokens
+    ====================================================== */
+    :root {
+      --bg-black:     #0a0a0f;
+      --bg-navy:      #0d1117;
+      --bg-card:      #131820;
+      --bg-card-alt:  #161d27;
+      --accent-orange: #f97316;
+      --accent-green:  #22c55e;
+      --accent-dim:    #c2410c;
+      --text-white:    #f8fafc;
+      --text-muted:    #94a3b8;
+      --border:        rgba(255,255,255,0.07);
+      --font-display:  'Syne', sans-serif;
+      --font-body:     'Inter', sans-serif;
+      --radius:        12px;
+      --max-w:         1160px;
+    }
+
+    /* =====================================================
+       RESET & BASE
+    ====================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* =====================================================
+       HEADER / NAV
+    ====================================================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
+
+    /* Logo / brand */
+    .brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--accent-orange), #fb923c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand-tag {
+      font-size: 0.67rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      -webkit-text-fill-color: var(--text-muted);
+    }
+
+    /* Nav links */
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    nav ul li a {
+      display: block;
+      padding: 6px 11px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--text-white);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* Cart icon pill */
+    .nav-cart {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      color: var(--text-white);
+      transition: border-color 0.2s;
+    }
+
+    .nav-cart:hover { border-color: var(--accent-orange); }
+
+    /* Sprint 4 badge */
+    .badge-sprint {
+      background: linear-gradient(135deg, var(--accent-orange), #fb923c);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* =====================================================
+       HERO SECTION
+    ====================================================== */
+    #home {
+      position: relative;
+      overflow: hidden;
+      padding: 120px 0 100px;
+      background: var(--bg-navy);
+    }
+
+    /* Radial glow background effect */
+    #home::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 700px;
+      background: radial-gradient(ellipse at center,
+        rgba(249, 115, 22, 0.18) 0%,
+        rgba(249, 115, 22, 0.04) 50%,
+        transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.3);
+      color: var(--accent-orange);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(90deg, var(--accent-orange), #fb923c, var(--accent-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent-orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #ea6c0d;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent-orange);
+      background: rgba(249,115,22,0.06);
+    }
+
+    /* Wearable logo strip */
+    .wearable-strip {
+      margin-top: 64px;
+      text-align: center;
+    }
+
+    .wearable-strip p {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .wearable-logos {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .wearable-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wearable-chip span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      display: inline-block;
+    }
+
+    /* =====================================================
+       SECTION SHARED STYLES
+    ====================================================== */
+    section { padding: 96px 0; }
+
+    .section-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-orange);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       ABOUT SECTION
+    ====================================================== */
+    #about {
+      background: var(--bg-black);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-stat-row {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .about-stat h3 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent-orange), #fb923c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-stat p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .about-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .hrv-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .hrv-bar-track {
+      background: rgba(255,255,255,0.06);
+      border-radius: 99px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .hrv-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-green));
+    }
+
+    /* =====================================================
+       FEATURES SECTION
+    ====================================================== */
+    #features {
+      background: var(--bg-navy);
+    }
+
+    .features-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 64px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(249,115,22,0.4);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 18px;
+      line-height: 1;
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(34,197,94,0.1);
+      color: var(--accent-green);
+      border: 1px solid rgba(34,197,94,0.2);
+    }
+
+    /* =====================================================
+       PRICING SECTION
+    ====================================================== */
+    #pricing {
+      background: var(--bg-black);
+    }
+
+    .pricing-header {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 64px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      position: relative;
+      transition: border-color 0.25s;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent-orange);
+      background: var(--bg-card-alt);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-orange);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .plan-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .plan-price {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      margin: 16px 0 4px;
+    }
+
+    .plan-price sup {
+      font-size: 1.2rem;
+      vertical-align: top;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .plan-price span.mo {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .plan-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .plan-features li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--accent-green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .plan-features li.locked {
+      opacity: 0.4;
+    }
+
+    .plan-features li.locked::before {
+      content: '—';
+      color: var(--text-muted);
+    }
+
+    .btn-plan {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-plan.primary {
+      background: var(--accent-orange);
+      color: #fff;
+    }
+
+    .btn-plan.primary:hover {
+      background: #ea6c0d;
+      transform: translateY(-1px);
+    }
+
+    .btn-plan.secondary {
+      background: transparent;
+      color: var(--text-white);
+      border: 1px solid var(--border);
+    }
+
+    .btn-plan.secondary:hover {
+      border-color: var(--accent-orange);
+      background: rgba(249,115,22,0.06);
+    }
+
+    /* =====================================================
+       SHOP & CART STUBS
+    ====================================================== */
+    #shop {
+      background: var(--bg-navy);
+    }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .shop-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .shop-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(249,115,22,0.35);
+    }
+
+    .shop-img-placeholder {
+      height: 160px;
+      background: linear-gradient(135deg, #1a2236, #0f1825);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .shop-card-body {
+      padding: 20px;
+    }
+
+    .shop-card-body h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .shop-card-body .price {
+      color: var(--accent-orange);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+    }
+
+    .shop-card-body .price-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .shop-card-body .price-original {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-decoration: line-through;
+    }
+
+    .shop-card-body .price-sale {
+      color: var(--accent-green);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .sale-badge {
+      display: inline-block;
+      background: var(--accent-green);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .shop-card-body .short-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .shop-card-body .long-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .shop-card-body .product-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag-badge {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.25);
+      color: var(--accent-orange);
+    }
+
+    .cat-badge {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.25);
+      color: var(--accent-green);
+    }
+
+    .btn-add-cart {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.3);
+      color: var(--accent-orange);
+      padding: 9px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-add-cart:hover {
+      background: var(--accent-orange);
+      color: #fff;
+    }
+
+    /* =====================================================
+       BLOG SECTION
+    ====================================================== */
+    #blog {
+      background: var(--bg-black);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .blog-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(249,115,22,0.35);
+    }
+
+    .blog-img {
+      height: 180px;
+      background: linear-gradient(135deg, #1a2236, #0d1825);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .blog-card-body {
+      padding: 24px;
+    }
+
+    .blog-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-orange);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .blog-card-body h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .blog-card-body p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .blog-read-more {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-orange);
+    }
+
+    /* =====================================================
+       CONTACT SECTION
+    ====================================================== */
+    #contact {
+      background: var(--bg-navy);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-info h2 { margin-bottom: 16px; }
+
+    .contact-info p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-detail .icon {
+      font-size: 1.1rem;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--bg-black);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent-orange);
+    }
+
+    .form-group textarea { height: 120px; resize: vertical; }
+
+    /* =====================================================
+       EMAIL CTA / NEWSLETTER SECTION
+    ====================================================== */
+    #newsletter {
+      background: var(--bg-black);
+      padding: 80px 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #101828, #0d1825);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 20px;
+      padding: 72px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center,
+        rgba(249,115,22,0.15) 0%,
+        transparent 65%);
+      pointer-events: none;
+    }
+
+    .cta-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 36px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .email-form {
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .email-form input {
+      flex: 1;
+      min-width: 220px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 18px;
+      color: var(--text-white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-form input:focus { border-color: var(--accent-orange); }
+
+    .email-form input::placeholder { color: var(--text-muted); }
+
+    .email-form button {
+      background: var(--accent-orange);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 13px 28px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .email-form button:hover {
+      background: #ea6c0d;
+      transform: translateY(-1px);
+    }
+
+    .cta-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    /* =====================================================
+       SPRINT 4 SECTION
+    ====================================================== */
+    #sprint4 {
+      background: var(--bg-navy);
+    }
+
+    .sprint4-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+    }
+
+    .sprint4-inner h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .sprint4-inner p {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    .sprint-checklist {
+      list-style: none;
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .sprint-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    .sprint-checklist li span.check {
+      color: var(--accent-green);
+      font-weight: 700;
+    }
+
+    /* =====================================================
+       CHECKOUT PAGE STUB
+    ====================================================== */
+    #checkout {
+      background: var(--bg-black);
+    }
+
+    .checkout-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .checkout-form-section h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .checkout-summary {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .checkout-summary h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .summary-line.total {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-weight: 700;
+      color: var(--text-white);
+      font-size: 1rem;
+    }
+
+    /* =====================================================
+       CART SECTION
+    ====================================================== */
+    #cart {
+      padding: 80px 0;
+      background: var(--bg-navy);
+    }
+
+    .cart-empty-msg {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .cart-empty-msg a {
+      color: var(--accent-orange);
+      font-weight: 600;
+    }
+
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 32px;
+    }
+
+    .cart-table th {
+      text-align: left;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 0 0 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-table td {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+
+    .cart-table .item-name { font-weight: 600; }
+
+    .cart-table .item-price { color: var(--accent-orange); font-weight: 700; }
+
+    .cart-table .item-remove {
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      background: none;
+      border: none;
+      color: #ef4444;
+    }
+
+    .cart-table .item-qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .cart-actions a.continue {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .cart-actions a.continue:hover { color: var(--text-white); }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text-white);
+      gap: 24px;
+    }
+
+    .cart-total-row span:first-child { color: var(--text-muted); font-weight: 400; }
+
+    /* =====================================================
+       PAYMENT METHOD TABS
+    ====================================================== */
+    .payment-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .pay-tab {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card-alt);
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .pay-tab.active {
+      border-color: var(--accent-orange);
+      color: var(--text-white);
+    }
+
+    .pay-tab .pay-logo { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+
+    .pay-panel { display: none; }
+    .pay-panel.active { display: block; }
+
+    .paypal-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+    }
+
+    .paypal-btn {
+      display: inline-block;
+      background: #ffc439;
+      color: #003087;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 14px 48px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      margin-top: 12px;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .paypal-btn:hover { background: #f0b429; }
+
+    /* =====================================================
+       FOOTER
+    ====================================================== */
+    footer {
+      background: var(--bg-navy);
+      border-top: 1px solid var(--border);
+      padding: 60px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .brand-name {
+      font-size: 1.4rem;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 260px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--text-white); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-links a {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover { color: var(--accent-orange); }
+
+    /* =====================================================
+       RESPONSIVE
+    ====================================================== */
+    @media (max-width: 900px) {
+      nav ul { display: none; }
+      .about-grid,
+      .contact-grid,
+      .checkout-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .cta-box { padding: 48px 24px; }
+      .sprint4-inner { padding: 32px 24px; }
+    }
+
+    /* =====================================================
+       UTILITY / DIVIDER
+    ====================================================== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* =====================================================
+       LEAD MAGNET / SIGN-UP SECTION
+    ====================================================== */
+    #signup {
+      background: var(--bg-black);
+      padding: 100px 0;
+    }
+
+    .signup-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .signup-magnet {
+      background: linear-gradient(135deg, #0f1f14, #0d1825);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 20px;
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .signup-magnet::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 280px; height: 280px;
+      background: radial-gradient(ellipse, rgba(34,197,94,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .magnet-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--accent-green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .signup-magnet h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .signup-magnet p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .magnet-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .magnet-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .magnet-checklist li::before {
+      content: '✓';
+      color: var(--accent-green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .signup-form-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+    }
+
+    .signup-form-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .signup-form-box .sub-text {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    #signup-msg {
+      display: none;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    #signup-msg.success {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--accent-green);
+    }
+
+    #signup-msg.error {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #ef4444;
+    }
+
+    .btn-signup {
+      display: block;
+      width: 100%;
+      background: var(--accent-green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 8px;
+    }
+
+    .btn-signup:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    .btn-signup:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .signup-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .signup-wrap { grid-template-columns: 1fr; }
+    }
+
+    /* Scroll-reveal shimmer on section titles (pure CSS) */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up { animation: fadeUp 0.6s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================
+       HEADER — sticky nav with all required links
+  ====================================================== -->
+  <header>
+    <div class="container">
+      <div class="nav-inner">
+
+        <!-- Brand -->
+        <a href="#home" class="brand">
+          <span class="brand-name">🔥 CoreFuel</span>
+          <span class="brand-tag">Train Smart. Fuel Right.</span>
+        </a>
+
+        <!-- Navigation -->
+        <nav>
+          <ul>
+            <li><a href="#home"       class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#cart" class="nav-cart">🛒 Cart <span>(0)</span></a></li>
+            <li><a href="#checkout">Checkout</a></li>
+            <li><a href="#signup" class="badge-sprint" style="background:linear-gradient(135deg,var(--accent-green),#16a34a);">🎁 Free Guide</a></li>
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+
+
+  <!-- =====================================================
+       HERO SECTION
+  ====================================================== -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-content fade-up">
+
+        <div class="hero-eyebrow">
+          ⚡ Now syncing with Apple Watch, WHOOP &amp; Garmin
+        </div>
+
+        <h1 class="hero-title">
+          Your Body Is Unique.<br />
+          Your <span class="highlight">Fitness Plan</span> Should Be Too.
+        </h1>
+
+        <p class="hero-sub">
+          CoreFuel reads your HRV, sleep, and wearable data daily — then rebuilds your
+          training and nutrition plan from the ground up. No templates. No guesswork.
+          Just science-backed performance fuel tailored to <em>you</em>.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#pricing" class="btn-primary">Start Free — No Credit Card</a>
+          <a href="#features" class="btn-outline">See How It Works</a>
+        </div>
+
+      </div>
+
+      <!-- Wearable compatibility strip -->
+      <div class="wearable-strip">
+        <p>Syncs with</p>
+        <div class="wearable-logos">
+          <div class="wearable-chip"><span class="dot"></span> Apple Watch</div>
+          <div class="wearable-chip"><span class="dot"></span> WHOOP</div>
+          <div class="wearable-chip"><span class="dot"></span> Garmin</div>
+          <div class="wearable-chip"><span class="dot"></span> Oura Ring</div>
+          <div class="wearable-chip"><span class="dot"></span> Fitbit</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       ABOUT SECTION
+  ====================================================== -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div>
+          <p class="section-eyebrow">About CoreFuel</p>
+          <h2 class="section-title">Built by Athletes,<br />Powered by Data</h2>
+          <p class="section-sub">
+            CoreFuel was founded by Reed Lotter after years of frustration with fitness
+            apps that gave everyone the same generic plan. As a competitive athlete, Reed
+            knew recovery and nutrition are deeply personal — so he built the platform he
+            always wanted: one that listens to your body before telling you what to do.
+          </p>
+          <p class="section-sub" style="margin-top: 16px;">
+            Our engine combines HRV biometrics, real wearable data, and high-protein
+            nutritional science to deliver adaptive weekly plans that evolve with your
+            performance — not against it.
+          </p>
+          <div class="about-stat-row">
+            <div class="about-stat">
+              <h3>92%</h3>
+              <p>of users hit PRs in 8 weeks</p>
+            </div>
+            <div class="about-stat">
+              <h3>5+</h3>
+              <p>wearable integrations</p>
+            </div>
+            <div class="about-stat">
+              <h3>HRV</h3>
+              <p>driven daily adjustments</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated HRV dashboard card -->
+        <div class="about-visual">
+          <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-muted); margin-bottom:4px;">Today's Readiness Score</p>
+          <div style="font-family:var(--font-display); font-size:3rem; font-weight:800; color:var(--accent-green);">82 <span style="font-size:1rem; color:var(--text-muted); font-family:var(--font-body);">/ 100</span></div>
+
+          <div>
+            <div class="hrv-bar-label"><span>HRV Score</span><span style="color:var(--accent-green);">74 ms</span></div>
+            <div class="hrv-bar-track"><div class="hrv-bar-fill" style="width:74%"></div></div>
+          </div>
+
+          <div>
+            <div class="hrv-bar-label"><span>Sleep Quality</span><span style="color:var(--accent-orange);">68%</span></div>
+            <div class="hrv-bar-track"><div class="hrv-bar-fill" style="width:68%; background: linear-gradient(90deg,var(--accent-orange),#fb923c)"></div></div>
+          </div>
+
+          <div>
+            <div class="hrv-bar-label"><span>Recovery Index</span><span style="color:var(--accent-green);">88%</span></div>
+            <div class="hrv-bar-track"><div class="hrv-bar-fill" style="width:88%"></div></div>
+          </div>
+
+          <div style="margin-top:8px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.2); border-radius:8px; padding:12px 16px; font-size:0.85rem; color:var(--accent-green);">
+            ✓ <strong>CoreFuel recommends:</strong> High-intensity strength session today. Protein target: 198g.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       FEATURES SECTION
+  ====================================================== -->
+  <section id="features">
+    <div class="container">
+
+      <div class="features-header">
+        <p class="section-eyebrow">What Makes CoreFuel Different</p>
+        <h2 class="section-title">Every Feature Built Around Your Biology</h2>
+        <p class="section-sub">
+          Not a calorie counter. Not a cookie-cutter program. A living system that
+          adapts to your data every single week.
+        </p>
+      </div>
+
+      <div class="features-grid">
+
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Adaptive Weekly Plans</h3>
+          <p>
+            CoreFuel rebuilds your training split every Monday based on last week's
+            performance, fatigue signals, and upcoming goals — automatically.
+          </p>
+          <span class="feature-tag">Auto-Regenerates Weekly</span>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">💓</div>
+          <h3>HRV-Based Adjustments</h3>
+          <p>
+            Heart rate variability doesn't lie. When your HRV dips, CoreFuel shifts
+            your day to active recovery. When it's elevated, it pushes intensity.
+          </p>
+          <span class="feature-tag">Real-Time Biometric Input</span>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">📷</div>
+          <h3>Meal Scanning</h3>
+          <p>
+            Snap a photo of any meal and CoreFuel's vision model identifies macros,
+            flags protein gaps, and logs everything — no barcodes, no typing.
+          </p>
+          <span class="feature-tag">AI-Powered</span>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">🥩</div>
+          <h3>Macro &amp; Protein Guidance</h3>
+          <p>
+            Built on high-protein, whole-food nutritional science. CoreFuel gives
+            you daily macro targets optimized for body recomposition and performance.
+          </p>
+          <span class="feature-tag">Animal-Based Protocol Available</span>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">⌚</div>
+          <h3>Wearable Sync</h3>
+          <p>
+            Seamlessly connects to Apple Watch, WHOOP, Garmin, Oura Ring, and Fitbit.
+            All your data in one place — no manual imports ever.
+          </p>
+          <span class="feature-tag">5+ Devices Supported</span>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Performance Analytics</h3>
+          <p>
+            Track strength trends, body composition shifts, HRV patterns, and
+            nutritional compliance over time with clean, easy-to-read dashboards.
+          </p>
+          <span class="feature-tag">Premium Plus Feature</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       PRICING SECTION
+  ====================================================== -->
+  <section id="pricing">
+    <div class="container">
+
+      <div class="pricing-header">
+        <p class="section-eyebrow">Simple, Transparent Pricing</p>
+        <h2 class="section-title">Start Free. Upgrade When Ready.</h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          No hidden fees. Cancel anytime. Every tier unlocks real value from day one.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- FREE -->
+        <div class="pricing-card">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">$0<span class="mo"> / mo</span></div>
+          <p class="plan-desc">Get started with core tracking tools — perfect for beginners exploring personalized fitness.</p>
+          <ul class="plan-features">
+            <li>Basic workout logging</li>
+            <li>Manual macro tracking</li>
+            <li>Step &amp; activity tracking</li>
+            <li>7-day history</li>
+            <li class="locked">HRV-based plan adjustments</li>
+            <li class="locked">Wearable sync</li>
+            <li class="locked">Meal photo scanning</li>
+          </ul>
+          <a href="#newsletter" class="btn-plan secondary">Get Started Free</a>
+        </div>
+
+        <!-- PREMIUM — featured -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="plan-name">Premium</div>
+          <div class="plan-price"><sup>$</sup>25<span class="mo"> / mo</span></div>
+          <p class="plan-desc">Fully personalized plans, wearable sync, and macro guidance — everything you need to level up.</p>
+          <ul class="plan-features">
+            <li>Everything in Free</li>
+            <li>Adaptive weekly training plans</li>
+            <li>HRV-based daily adjustments</li>
+            <li>Wearable sync (all devices)</li>
+            <li>Meal photo scanning</li>
+            <li>Personalized macro guidance</li>
+            <li class="locked">Advanced analytics dashboard</li>
+            <li class="locked">Custom meal plans</li>
+          </ul>
+          <a href="#newsletter" class="btn-plan primary">Start 7-Day Free Trial</a>
+        </div>
+
+        <!-- PREMIUM PLUS -->
+        <div class="pricing-card">
+          <div class="plan-name">Premium Plus</div>
+          <div class="plan-price"><sup>$</sup>49<span class="mo"> / mo</span></div>
+          <p class="plan-desc">The full CoreFuel experience — elite analytics, custom meal plans, and priority coaching support.</p>
+          <ul class="plan-features">
+            <li>Everything in Premium</li>
+            <li>Advanced performance analytics</li>
+            <li>Custom weekly meal plan</li>
+            <li>Body composition tracking</li>
+            <li>Priority support (24h response)</li>
+            <li>Early access to new features</li>
+            <li>Quarterly check-in call (coming soon)</li>
+          </ul>
+          <a href="#newsletter" class="btn-plan secondary">Go Premium Plus</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       SHOP SECTION
+  ====================================================== -->
+  <section id="shop">
+    <div class="container">
+      <p class="section-eyebrow">CoreFuel Shop</p>
+      <h2 class="section-title">Fuel the Mission</h2>
+      <p class="section-sub">Apparel, supplements, and accessories built for the performance-focused athlete.</p>
+
+      <div class="shop-grid">
+
+        <!-- Product 1: Full Price -->
+        <div class="shop-card">
+          <div class="shop-img-placeholder">⚡</div>
+          <div class="shop-card-body">
+            <h4>CoreFuel Performance Bundle</h4>
+            <div class="price">$89.99</div>
+            <p class="short-desc">Fuel your game with CoreFuel's all-in-one performance bundle — designed for serious athletes who demand peak energy, focus, and recovery.</p>
+            <p class="long-desc">The CoreFuel Performance Bundle is built for competitive athletes who train hard and need consistent, clean energy to perform at the highest level. This bundle includes our pre-workout focus formula, intra-workout hydration mix, and post-workout recovery blend — each crafted with research-backed ingredients and no artificial fillers. Whether you're grinding through early morning practices or pushing through a tough tournament round, CoreFuel keeps you mentally sharp and physically recovered. Each product in the bundle is NSF Certified for Sport, making it safe for collegiate and professional athletes. Stop guessing what your body needs — CoreFuel gives you the full picture.</p>
+            <div class="product-meta">
+              <span class="cat-badge">Performance Nutrition</span>
+              <span class="tag-badge">#athlete-fuel</span>
+              <span class="tag-badge">#performance-bundle</span>
+            </div>
+            <button class="btn-add-cart" onclick="addToCart('CoreFuel Performance Bundle', 89.99, null)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product 2: On Sale -->
+        <div class="shop-card">
+          <div class="shop-img-placeholder">🌿</div>
+          <div class="shop-card-body">
+            <span class="sale-badge">Sale — 30% Off</span>
+            <h4>CoreFuel Daily Greens</h4>
+            <div class="price-row">
+              <span class="price-original">$49.99</span>
+              <span class="price-sale">$34.99</span>
+            </div>
+            <p class="short-desc">CoreFuel Daily Greens delivers 20+ whole-food greens, adaptogens, and antioxidants in one easy daily scoop — now on sale for a limited time.</p>
+            <p class="long-desc">CoreFuel Daily Greens is your daily foundation for gut health, immune support, and sustained energy — without stimulants. Packed with 20+ organic greens, adaptogens like ashwagandha and rhodiola, and a complete antioxidant blend, this formula supports everything that happens off the field: sleep, digestion, and inflammation recovery. Designed specifically with student-athletes and active individuals in mind, CoreFuel Daily Greens bridges the nutritional gaps that most training diets leave behind. Just one scoop in water or a smoothie each morning is all it takes. It's unflavored, mixes clean, and plays well with any existing stack. This is the one supplement every athlete should start with — and right now it's 30% off.</p>
+            <div class="product-meta">
+              <span class="cat-badge">Performance Nutrition</span>
+              <span class="cat-badge">Recovery</span>
+              <span class="tag-badge">#greens-supplement</span>
+              <span class="tag-badge">#recovery-nutrition</span>
+            </div>
+            <button class="btn-add-cart" onclick="addToCart('CoreFuel Daily Greens', 49.99, 34.99)">Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CART SECTION
+  ====================================================== -->
+  <section id="cart">
+    <div class="container">
+      <p class="section-eyebrow">Your Cart</p>
+      <h2 class="section-title" style="margin-bottom:40px;">Shopping Cart</h2>
+
+      <div id="cart-empty" class="cart-empty-msg">
+        <p>Your cart is empty. <a href="#shop">Continue Shopping →</a></p>
+      </div>
+
+      <div id="cart-items-wrap" style="display:none;">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cart-tbody"></tbody>
+        </table>
+
+        <div class="cart-total-row">
+          <span>Cart Total</span>
+          <span id="cart-grand-total">$0.00</span>
+        </div>
+
+        <div class="cart-actions">
+          <a href="#shop" class="continue">← Continue Shopping</a>
+          <a href="#checkout" class="btn-primary" style="padding:12px 28px; border-radius:8px; font-size:0.9rem; font-weight:700;">Proceed to Checkout →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       BLOG SECTION
+  ====================================================== -->
+  <section id="blog">
+    <div class="container">
+      <p class="section-eyebrow">CoreFuel Blog</p>
+      <h2 class="section-title">Performance Insights &amp; Nutrition Science</h2>
+
+      <div class="blog-grid">
+
+        <div class="blog-card">
+          <div class="blog-img">💓</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">HRV &amp; Recovery</span>
+            <h4>Why Generic Fitness Apps Are Failing You — And What CoreFuel Does Differently</h4>
+            <p>One-size-fits-all programs ignore your body's daily signals. Here's why biometric personalization changes everything.</p>
+            <a href="#" class="blog-read-more">Read more →</a>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-img">🥩</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Nutrition</span>
+            <h4>The Case for High-Protein, Animal-Based Nutrition in Body Recomposition</h4>
+            <p>Why whole-food protein sources outperform powders for muscle retention and long-term body composition goals.</p>
+            <a href="#" class="blog-read-more">Read more →</a>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-img">⌚</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Wearables</span>
+            <h4>WHOOP vs Apple Watch vs Garmin — Which Gives the Best HRV Data?</h4>
+            <p>A breakdown of the top wearables and how CoreFuel uses data from each to personalize your training load.</p>
+            <a href="#" class="blog-read-more">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       CONTACT SECTION
+  ====================================================== -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-info">
+          <p class="section-eyebrow">Get in Touch</p>
+          <h2 class="section-title">We'd Love to Hear From You</h2>
+          <p>Have a question about CoreFuel, want to partner with us, or just curious how it works? Drop us a message and we'll get back to you within 24 hours.</p>
+          <div class="contact-detail"><span class="icon">📧</span> hello@corefuel.app</div>
+          <div class="contact-detail"><span class="icon">📍</span> Austin, TX</div>
+          <div class="contact-detail"><span class="icon">🐦</span> @CoreFuelApp</div>
+        </div>
+
+        <div class="contact-form">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Reed Lotter" />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option>General Inquiry</option>
+              <option>Partnership</option>
+              <option>Support</option>
+              <option>Press</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell us what's on your mind..."></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%; border:none; cursor:pointer;">Send Message</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       EMAIL CTA / NEWSLETTER SECTION
+  ====================================================== -->
+  <section id="newsletter">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Ready to Stop Guessing<br />and Start Fueling?</h2>
+        <p>
+          Join thousands of athletes using CoreFuel to train smarter, recover faster,
+          and hit goals that actually stick. Start free — no credit card required.
+        </p>
+        <form class="email-form" onsubmit="return false;">
+          <input type="email" placeholder="Enter your email address" />
+          <button type="submit">Get Early Access</button>
+        </form>
+        <p class="cta-note">No spam. Unsubscribe at any time. Your data stays yours.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       LEAD MAGNET / SIGN-UP SECTION
+  ====================================================== -->
+  <section id="signup">
+    <div class="container">
+      <div class="signup-wrap">
+
+        <!-- Left: Lead Magnet Offer -->
+        <div class="signup-magnet">
+          <div class="magnet-badge">📥 Free Download</div>
+          <h2>The CoreFuel 7-Day<br /><span style="color:var(--accent-green);">High-Protein Meal Plan</span><br />+ HRV Baseline Guide</h2>
+          <p>
+            Stop guessing what to eat and how hard to train. This free guide gives you a
+            science-backed 7-day meal plan built around high-protein, whole-food nutrition
+            — plus a step-by-step HRV baseline protocol so CoreFuel can start personalizing
+            your plan from day one.
+          </p>
+          <ul class="magnet-checklist">
+            <li>7 days of high-protein meal plans (breakfast, lunch, dinner, snacks)</li>
+            <li>Daily macro targets for body recomposition</li>
+            <li>HRV baseline setup guide for Apple Watch, WHOOP &amp; Garmin</li>
+            <li>CoreFuel's top 10 recovery foods for faster adaptation</li>
+            <li>Grocery list included — ready to shop in 10 minutes</li>
+          </ul>
+        </div>
+
+        <!-- Right: Sign-Up Form -->
+        <div class="signup-form-box">
+          <h3>Get Your Free Guide</h3>
+          <p class="sub-text">
+            Enter your name and email — we'll send your free CoreFuel Starter Pack instantly.
+            No spam. Unsubscribe any time.
+          </p>
+
+          <div id="signup-msg"></div>
+
+          <form id="lead-form" onsubmit="submitLeadForm(event)">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="lead-name" placeholder="Your first name" required />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="lead-email" placeholder="you@example.com" required />
+            </div>
+            <button type="submit" class="btn-signup" id="signup-btn">
+              📥 Send Me the Free Guide
+            </button>
+          </form>
+
+          <p class="signup-note">🔒 Your info is safe. CoreFuel never sells your data.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       CHECKOUT SECTION (stub for WordPress / WooCommerce)
+  ====================================================== -->
+  <section id="checkout">
+    <div class="container">
+      <p class="section-eyebrow">Checkout</p>
+      <h2 class="section-title" style="margin-bottom:40px;">Complete Your Order</h2>
+
+      <div class="checkout-inner">
+
+        <div class="checkout-form-section">
+          <h3>Billing &amp; Payment</h3>
+
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Reed Lotter" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" />
+          </div>
+
+          <!-- Payment Method Tabs -->
+          <p style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin:20px 0 10px;">Payment Method</p>
+          <div class="payment-tabs">
+            <div class="pay-tab active" onclick="switchPayTab('card',this)">
+              <span class="pay-logo">💳</span>Credit Card
+            </div>
+            <div class="pay-tab" onclick="switchPayTab('paypal',this)">
+              <span class="pay-logo">🅿</span>PayPal
+            </div>
+          </div>
+
+          <!-- Credit Card Panel -->
+          <div id="pay-panel-card" class="pay-panel active">
+            <div class="form-group">
+              <label>Card Number</label>
+              <input type="text" placeholder="4242 4242 4242 4242" maxlength="19" />
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div class="form-group">
+                <label>Expiry</label>
+                <input type="text" placeholder="MM / YY" maxlength="7" />
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="text" placeholder="•••" maxlength="4" />
+              </div>
+            </div>
+            <button class="btn-primary" onclick="placeOrder()" style="width:100%; border:none; cursor:pointer; margin-top:8px;">Place Order</button>
+            <p style="font-size:0.78rem; color:var(--text-muted); text-align:center; margin-top:12px;">🔒 Secured with 256-bit SSL encryption</p>
+          </div>
+
+          <!-- PayPal Panel -->
+          <div id="pay-panel-paypal" class="pay-panel">
+            <div class="paypal-panel">
+              <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:8px;">You will be redirected to PayPal to complete your purchase securely.</p>
+              <button class="paypal-btn" onclick="placeOrder()">
+                Pay<span style="font-style:italic; font-weight:400;">Pal</span>
+              </button>
+              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:12px;">🔒 Protected by PayPal Buyer Protection</p>
+            </div>
+          </div>
+
+          <div id="order-success" style="display:none; text-align:center; padding:32px; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.3); border-radius:var(--radius); margin-top:20px;">
+            <div style="font-size:2.5rem; margin-bottom:12px;">✅</div>
+            <h3 style="font-family:var(--font-display); color:var(--accent-green); margin-bottom:8px;">Order Placed!</h3>
+            <p style="color:var(--text-muted); font-size:0.88rem;">Thank you for your CoreFuel order. A confirmation has been sent to your email.</p>
+          </div>
+        </div>
+
+        <div class="checkout-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-summary-lines">
+            <p style="color:var(--text-muted); font-size:0.85rem;">No items in cart. <a href="#shop" style="color:var(--accent-orange);">Shop now →</a></p>
+          </div>
+          <div class="summary-line total" style="margin-top:16px;">
+            <span>Total due today</span>
+            <span id="checkout-total">$0.00</span>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:14px; line-height:1.5;">
+            Free shipping on all orders. No hidden fees.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       SPRINT 4 SECTION
+  ====================================================== -->
+  <section id="sprint4">
+    <div class="container">
+      <div class="sprint4-inner">
+        <p class="section-eyebrow">Class Assignment</p>
+        <h2>Sprint 4 — CoreFuel</h2>
+        <p>
+          This landing page was built as part of Sprint 4 for the entrepreneurship course.
+          It demonstrates a fully functional, design-complete single-page site for CoreFuel —
+          a personalized wellness app integrating biometric feedback, adaptive training, and
+          high-protein nutritional guidance.
+        </p>
+        <p>
+          The site covers all required pages and sections: Home, About, Blog, Contact,
+          Pricing, Shop, Cart, Checkout, and this Sprint 4 reference section. Designed to
+          serve as a visual and structural guide for the WordPress implementation.
+        </p>
+        <ul class="sprint-checklist">
+          <li><span class="check">✓</span> Custom header &amp; logo</li>
+          <li><span class="check">✓</span> Custom favicon (flame SVG)</li>
+          <li><span class="check">✓</span> Full navigation (all 9 links)</li>
+          <li><span class="check">✓</span> Hero section (original copy)</li>
+          <li><span class="check">✓</span> Features section (5 core features)</li>
+          <li><span class="check">✓</span> Pricing (Free / Premium / Premium+)</li>
+          <li><span class="check">✓</span> Shop &amp; Cart section</li>
+          <li><span class="check">✓</span> Checkout page stub</li>
+          <li><span class="check">✓</span> Blog section</li>
+          <li><span class="check">✓</span> Contact form</li>
+          <li><span class="check">✓</span> Email CTA section</li>
+          <li><span class="check">✓</span> Dark performance design</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div class="brand-name" style="font-family:var(--font-display); font-size:1.4rem; font-weight:800; background:linear-gradient(90deg,var(--accent-orange),#fb923c); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:inline-block; margin-bottom:10px;">🔥 CoreFuel</div>
+          <p>Train smarter. Fuel better. Recover faster. The only fitness app that listens to your body before it tells you what to do.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#signup">Free Guide</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#sprint4">Sprint 4</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Integrations</h4>
+          <ul>
+            <li><a href="#">Apple Watch</a></li>
+            <li><a href="#">WHOOP</a></li>
+            <li><a href="#">Garmin</a></li>
+            <li><a href="#">Oura Ring</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 CoreFuel. All rights reserved. Built by Reed Lotter.</span>
+        <div class="social-links">
+          <a href="#">Twitter</a>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">TikTok</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Cart State ─────────────────────────────────────
+    const cart = [];  // { name, price, qty }
+
+    function addToCart(name, regularPrice, salePrice) {
+      const price = salePrice !== null ? salePrice : regularPrice;
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      renderCart();
+      updateNavCount();
+      // Flash the button green then scroll to cart
+      event.target.textContent = '✓ Added!';
+      event.target.style.background = 'var(--accent-green)';
+      event.target.style.color = '#fff';
+      setTimeout(() => {
+        event.target.textContent = 'Add to Cart';
+        event.target.style.background = '';
+        event.target.style.color = '';
+      }, 1200);
+      setTimeout(() => {
+        document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+      updateNavCount();
+    }
+
+    function changeQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty < 1) { cart.splice(index, 1); }
+      renderCart();
+      updateNavCount();
+    }
+
+    function renderCart() {
+      const empty   = document.getElementById('cart-empty');
+      const wrap    = document.getElementById('cart-items-wrap');
+      const tbody   = document.getElementById('cart-tbody');
+      const grandEl = document.getElementById('cart-grand-total');
+
+      if (cart.length === 0) {
+        empty.style.display = 'block';
+        wrap.style.display  = 'none';
+        updateCheckoutSummary();
+        return;
+      }
+
+      empty.style.display = 'none';
+      wrap.style.display  = 'block';
+
+      let total = 0;
+      tbody.innerHTML = cart.map((item, i) => {
+        const sub = item.price * item.qty;
+        total += sub;
+        return `
+          <tr>
+            <td class="item-name">${item.name}</td>
+            <td class="item-price">$${item.price.toFixed(2)}</td>
+            <td>
+              <div class="item-qty">
+                <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
+                <span>${item.qty}</span>
+                <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
+              </div>
+            </td>
+            <td class="item-price">$${sub.toFixed(2)}</td>
+            <td><button class="item-remove" onclick="removeFromCart(${i})" title="Remove">✕</button></td>
+          </tr>`;
+      }).join('');
+
+      grandEl.textContent = '$' + total.toFixed(2);
+      updateCheckoutSummary(total);
+    }
+
+    function updateNavCount() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      document.querySelectorAll('.nav-cart span').forEach(el => el.textContent = `(${count})`);
+    }
+
+    function updateCheckoutSummary(total) {
+      const linesEl  = document.getElementById('checkout-summary-lines');
+      const totalEl  = document.getElementById('checkout-total');
+      if (!cart.length) {
+        linesEl.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">No items in cart. <a href="#shop" style="color:var(--accent-orange);">Shop now →</a></p>`;
+        totalEl.textContent = '$0.00';
+        return;
+      }
+      linesEl.innerHTML = cart.map(item =>
+        `<div class="summary-line"><span>${item.name} × ${item.qty}</span><span>$${(item.price * item.qty).toFixed(2)}</span></div>`
+      ).join('') + `<div class="summary-line"><span>Shipping</span><span style="color:var(--accent-green);">Free</span></div>`;
+      totalEl.textContent = '$' + (total || 0).toFixed(2);
+    }
+
+    // ── Payment Tabs ───────────────────────────────────
+    function switchPayTab(tab, el) {
+      document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('pay-panel-' + tab).classList.add('active');
+    }
+
+    // ── MailerLite Lead Magnet Form ────────────────────
+    const MAILERLITE_API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMTAxMWE4YjUzODE0NmYxZmE2MzM4ZGEyY2Q0NTY0Yjc2Y2U4NDNjYjlmNDBkN2MyZjdiZWQ1MTUyNDMzMjBjY2QxNDgzMzlkNGQ0MTE0MDciLCJpYXQiOjE3NzYwNDI4ODEuNTI1Mzg0LCJuYmYiOjE3NzYwNDI4ODEuNTI1Mzg2LCJleHAiOjQ5MzE3MTY0ODEuNTIxNTE2LCJzdWIiOiIyMjgyOTUzIiwic2NvcGVzIjpbXX0.gJGQiYhnkSMg0lHqmrCVxk3o55ChvYW9c8ej_lBUeJPzmS-FHgAWgVUhT5vNMbYuuTa_zcZiS0XYaTHHe9GOHf8WOwj_w_qGrsRw69HLFQvgTJjGg27-X68A7mooqP4iDkN9JBLguBYssJZutXT3Zrzo8hDcx4tZo85kUY_yyaz8vZRhiVqa71pd4zxSlzEixINz0gQTZPsTMlUCAXjXnlalaTHNWGZEEP1x1QFMPzy8gFx5QenAlmRQ3hnZ4SWWT5auEDsRPo4wg7o42yV-YqhuedoOCBedeE4d54Es5lIzt24Kc28abdNJJHLvDfySVg-SFApCmC9xj8N6rAm3y40vYNDEcRV1-aguMyhL8zBESwwHTS8DE4o5zsdu4bk-v0ZSQjl3u05mdeyfvjDrPWhIHlP0cQkP6ouPrCohKgQFWjplej6X_KQ2cUA3joHogSVAL5PGzyYz7qjV4STlTJ8hw8loQfTbTcAreQigUIs4A8oJoqCc56PIAiKfYXjt5iHSphTLVGObHUKO0zwikGD0brLKSX2zTg0vRESZfquId0FU_eYre7uJuKdWTKwE9Bw0MsUsi9oKVB7j7pklfft6Zdv-rMTmKm_9VvQi_jcChW3BdNf4dzL0gSazRPZiabtrncIByUNvnb0fv0k8OCSk5SOfHlFfMUeVGm-m-00'; // ← paste your API key
+
+    async function submitLeadForm(e) {
+      e.preventDefault();
+      const name  = document.getElementById('lead-name').value.trim();
+      const email = document.getElementById('lead-email').value.trim();
+      const btn   = document.getElementById('signup-btn');
+      const msg   = document.getElementById('signup-msg');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      msg.style.display = 'none';
+
+      try {
+        const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + MAILERLITE_API_KEY
+          },
+          body: JSON.stringify({
+            email: email,
+            fields: {
+              name: name,
+              last_name: ''
+            },
+            status: 'active'
+          })
+        });
+
+        if (res.ok || res.status === 200 || res.status === 201) {
+          msg.className = 'success';
+          msg.textContent = '✅ You\'re in! Check your inbox for the free guide.';
+          msg.style.display = 'block';
+          document.getElementById('lead-form').reset();
+          btn.textContent = '✓ Subscribed!';
+        } else {
+          const data = await res.json().catch(() => ({}));
+          const errMsg = data?.message || 'Something went wrong. Please try again.';
+          msg.className = 'error';
+          msg.textContent = '⚠️ ' + errMsg;
+          msg.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = '📥 Send Me the Free Guide';
+        }
+      } catch (err) {
+        msg.className = 'error';
+        msg.textContent = '⚠️ Network error. Please check your connection and try again.';
+        msg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = '📥 Send Me the Free Guide';
+      }
+    }
+
+    // ── Place Order ────────────────────────────────────
+    function placeOrder() {
+      if (cart.length === 0) {
+        alert('Your cart is empty! Add a product first.');
+        return;
+      }
+      document.querySelectorAll('#pay-panel-card, #pay-panel-paypal').forEach(p => p.style.display = 'none');
+      document.getElementById('order-success').style.display = 'block';
+      cart.length = 0;
+      updateNavCount();
+      renderCart();
+    }
+  </script>
+
+</body>
+</html>
